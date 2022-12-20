@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Clasificaciones extends Model
 {
     use HasFactory;
-    protected $fillable = ['imagen','resultado'];
+    protected $fillable = ['imagen','resultado','user_id'];
     
     public function user()
     {

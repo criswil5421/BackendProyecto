@@ -7,6 +7,11 @@ use App\Models\Clasificaciones;
 
 class ClasificacionesController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['store','index','destroy','update']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -42,6 +47,7 @@ class ClasificacionesController extends Controller
 
         $clasificacion->imagen = $request->imagen;
         $clasificacion->resultado = $request->resultado;
+        $clasificacion->user_id = 1;
 
         $clasificacion->save();
     }
@@ -75,13 +81,14 @@ class ClasificacionesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update($id, Request $request)
     {
         //
-        $clasificacion = Clasificaciones::findOrFail($request->id);
+        $clasificacion = Clasificaciones::findOrFail($id);
 
         $clasificacion->imagen = $request->imagen;
         $clasificacion->resultado = $request->resultado;
+        $clasificacion->user_id = 1;
 
         $clasificacion->save();
 
@@ -97,7 +104,7 @@ class ClasificacionesController extends Controller
     public function destroy($id)
     {
         //
-        $clasificacion = Clasificaciones::destroy($request->id);
+        $clasificacion = Clasificaciones::destroy($id);
         return $clasificacion;
     }
 }

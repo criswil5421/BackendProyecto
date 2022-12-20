@@ -19,7 +19,32 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+Route::group([
+
+    'middleware' => 'api'
+
+], function ($router) {
+
 Route::get('/clasificaciones', 'App\Http\Controllers\ClasificacionesController@index');
 Route::post('/clasificaciones', 'App\Http\Controllers\ClasificacionesController@store');
-Route::put('/clasificaciones', 'App\Http\Controllers\ClasificacionesController@update');
-Route::delete('/clasificaciones', 'App\Http\Controllers\ClasificacionesController@destroy');
+Route::put('/clasificacion/{id}', 'App\Http\Controllers\ClasificacionesController@update');
+Route::delete('/clasificacion/{id}', 'App\Http\Controllers\ClasificacionesController@destroy');
+
+});
+
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+
+    Route::post('login', 'App\Http\Controllers\AuthController@login');
+    Route::post('logout', 'App\Http\Controllers\AuthController@logout');
+    Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');
+    Route::post('me', 'App\Http\Controllers\AuthController@me');
+    Route::post('register', 'App\Http\Controllers\AuthController@register');
+
+    
+
+});
