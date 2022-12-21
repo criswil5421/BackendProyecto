@@ -5,16 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rol extends Model
+class solicitudes extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'name_rol',
-        ];
+    protected $fillable = ['razon_social','ruc','descripcion','presupuesto','estado','user_id'];
 
     public function user()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(User::class);
     }
 }

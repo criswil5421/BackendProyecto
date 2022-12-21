@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Clasificaciones;
+use App\Models\User;
 
-class ClasificacionesController extends Controller
+class UserController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth:api');
@@ -20,8 +19,10 @@ class ClasificacionesController extends Controller
     public function index()
     {
         //
-        $clasificaciones = Clasificaciones::all();
-        return $clasificaciones;
+        $users = User::all();
+
+        return $users;
+
     }
 
     /**
@@ -43,13 +44,6 @@ class ClasificacionesController extends Controller
     public function store(Request $request)
     {
         //
-        $clasificacion = new Clasificaciones();
-
-        $clasificacion->imagen = $request->imagen;
-        $clasificacion->resultado = $request->resultado;
-        $clasificacion->user_id = 1;
-
-        $clasificacion->save();
     }
 
     /**
@@ -61,9 +55,9 @@ class ClasificacionesController extends Controller
     public function show($id)
     {
         //
-        $clasificacion = Clasificaciones::find($id);
+        $user = User::find($id);
 
-        return $clasificacion;
+        return $user;
     }
 
     /**
@@ -84,18 +78,9 @@ class ClasificacionesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id, Request $request)
+    public function update(Request $request, $id)
     {
         //
-        $clasificacion = Clasificaciones::findOrFail($id);
-
-        $clasificacion->imagen = $request->imagen;
-        $clasificacion->resultado = $request->resultado;
-        $clasificacion->user_id = 1;
-
-        $clasificacion->save();
-
-        return $clasificacion;
     }
 
     /**
@@ -107,7 +92,7 @@ class ClasificacionesController extends Controller
     public function destroy($id)
     {
         //
-        $clasificacion = Clasificaciones::destroy($id);
-        return $clasificacion;
+        $user = User::destroy($id);
+        return $user;
     }
 }

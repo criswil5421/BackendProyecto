@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Clasificaciones;
+use App\Models\RoleUser;
 
-class ClasificacionesController extends Controller
+class RolUserController extends Controller
 {
 
     public function __construct()
@@ -20,8 +20,8 @@ class ClasificacionesController extends Controller
     public function index()
     {
         //
-        $clasificaciones = Clasificaciones::all();
-        return $clasificaciones;
+        $rolesUsers = RoleUser::all();
+        return $rolesUsers;
     }
 
     /**
@@ -43,13 +43,12 @@ class ClasificacionesController extends Controller
     public function store(Request $request)
     {
         //
-        $clasificacion = new Clasificaciones();
+        $rolesUser = new RoleUser();
 
-        $clasificacion->imagen = $request->imagen;
-        $clasificacion->resultado = $request->resultado;
-        $clasificacion->user_id = 1;
+        $rolesUser->user_id = $request->user_id;
+        $rolesUser->role_id = $request->role_id;
 
-        $clasificacion->save();
+        $rolesUser->save();
     }
 
     /**
@@ -61,9 +60,9 @@ class ClasificacionesController extends Controller
     public function show($id)
     {
         //
-        $clasificacion = Clasificaciones::find($id);
+        $rolesUser = RoleUser::where('user_id', $id)->get();
 
-        return $clasificacion;
+        return $rolesUser;
     }
 
     /**
@@ -87,15 +86,11 @@ class ClasificacionesController extends Controller
     public function update($id, Request $request)
     {
         //
-        $clasificacion = Clasificaciones::findOrFail($id);
+        $rolesUsers = RoleUser::where('user_id', $id)->update(['role_id' => $request->role_id]);
 
-        $clasificacion->imagen = $request->imagen;
-        $clasificacion->resultado = $request->resultado;
-        $clasificacion->user_id = 1;
+        $rolesUser = RoleUser::where('user_id', $id)->get();
 
-        $clasificacion->save();
-
-        return $clasificacion;
+        return $rolesUser;
     }
 
     /**
@@ -107,7 +102,7 @@ class ClasificacionesController extends Controller
     public function destroy($id)
     {
         //
-        $clasificacion = Clasificaciones::destroy($id);
-        return $clasificacion;
+        $rolesUser = RoleUser::where('user_id', $id)->delete();
+        return $rolesUser;
     }
 }

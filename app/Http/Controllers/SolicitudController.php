@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Clasificaciones;
+use App\Models\solicitudes;
 
-class ClasificacionesController extends Controller
+class SolicitudController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth:api');
@@ -20,8 +19,9 @@ class ClasificacionesController extends Controller
     public function index()
     {
         //
-        $clasificaciones = Clasificaciones::all();
-        return $clasificaciones;
+        $solicitudes = solicitudes::all();
+        return $solicitudes;
+
     }
 
     /**
@@ -43,13 +43,16 @@ class ClasificacionesController extends Controller
     public function store(Request $request)
     {
         //
-        $clasificacion = new Clasificaciones();
+        $solicitud = new solicitudes();
 
-        $clasificacion->imagen = $request->imagen;
-        $clasificacion->resultado = $request->resultado;
-        $clasificacion->user_id = 1;
+        $solicitud->razon_social = $request->razon_social;
+        $solicitud->ruc = $request->ruc;
+        $solicitud->descripcion = $request->descripcion;
+        $solicitud->presupuesto = $request->presupuesto;
+        $solicitud->estado = $request->estado;
+        $solicitud->user_id = $request->user_id;
 
-        $clasificacion->save();
+        $solicitud->save();
     }
 
     /**
@@ -61,9 +64,9 @@ class ClasificacionesController extends Controller
     public function show($id)
     {
         //
-        $clasificacion = Clasificaciones::find($id);
+        $solicitud = solicitudes::find($id);
 
-        return $clasificacion;
+        return $solicitud;
     }
 
     /**
@@ -84,18 +87,22 @@ class ClasificacionesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id, Request $request)
+    public function update(Request $request, $id)
     {
         //
-        $clasificacion = Clasificaciones::findOrFail($id);
 
-        $clasificacion->imagen = $request->imagen;
-        $clasificacion->resultado = $request->resultado;
-        $clasificacion->user_id = 1;
+        $solicitud = solicitudes::findOrFail($id);
 
-        $clasificacion->save();
+        $solicitud->razon_social = $request->razon_social;
+        $solicitud->ruc = $request->ruc;
+        $solicitud->descripcion = $request->descripcion;
+        $solicitud->presupuesto = $request->presupuesto;
+        $solicitud->estado = $request->estado;
+        $solicitud->user_id = $request->user_id;
 
-        return $clasificacion;
+        $solicitud->save();
+
+        return $solicitud;
     }
 
     /**
@@ -107,7 +114,7 @@ class ClasificacionesController extends Controller
     public function destroy($id)
     {
         //
-        $clasificacion = Clasificaciones::destroy($id);
-        return $clasificacion;
+        $solicitud = solicitudes::destroy($id);
+        return $solicitud;
     }
 }

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Clasificaciones;
+use App\Models\Roles;
 
-class ClasificacionesController extends Controller
+class RolController extends Controller
 {
 
     public function __construct()
@@ -20,8 +20,9 @@ class ClasificacionesController extends Controller
     public function index()
     {
         //
-        $clasificaciones = Clasificaciones::all();
-        return $clasificaciones;
+        $roles = Roles::all();
+        return $roles;
+
     }
 
     /**
@@ -43,13 +44,11 @@ class ClasificacionesController extends Controller
     public function store(Request $request)
     {
         //
-        $clasificacion = new Clasificaciones();
+        $rol = new Roles();
 
-        $clasificacion->imagen = $request->imagen;
-        $clasificacion->resultado = $request->resultado;
-        $clasificacion->user_id = 1;
+        $rol->name_rol = $request->name_rol;
 
-        $clasificacion->save();
+        $rol->save();
     }
 
     /**
@@ -61,9 +60,10 @@ class ClasificacionesController extends Controller
     public function show($id)
     {
         //
-        $clasificacion = Clasificaciones::find($id);
+        $rol = Roles::find($id);
 
-        return $clasificacion;
+        return $rol;
+
     }
 
     /**
@@ -87,15 +87,13 @@ class ClasificacionesController extends Controller
     public function update($id, Request $request)
     {
         //
-        $clasificacion = Clasificaciones::findOrFail($id);
+        $rol = Roles::findOrFail($id);
 
-        $clasificacion->imagen = $request->imagen;
-        $clasificacion->resultado = $request->resultado;
-        $clasificacion->user_id = 1;
+        $rol->name_rol = $request->name_rol;
 
-        $clasificacion->save();
+        $rol->save();
 
-        return $clasificacion;
+        return $rol;
     }
 
     /**
@@ -107,7 +105,7 @@ class ClasificacionesController extends Controller
     public function destroy($id)
     {
         //
-        $clasificacion = Clasificaciones::destroy($id);
-        return $clasificacion;
+        $rol = Roles::destroy($id);
+        return $rol;
     }
 }
